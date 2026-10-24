@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Studio Nusara — Manajemen Katalog & Concierge</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            sand: {
+              50: '#faf8f5',
+              100: '#f5f0eb',
+              200: '#eadfd3',
+              300: '#dccebe',
+            },
+            terracotta: {
+              DEFAULT: '#b86b4d',
+              dark: '#985135',
+              light: '#f7ebe6',
+            },
+            ocean: {
+              dark: '#142a25',
+              muted: '#2d4841',
+            },
+            gold: '#c4a47c',
+            charcoal: '#1f1d1c'
+          },
+          fontFamily: {
+            serif: ['"Playfair Display"', 'Georgia', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-sand-50 text-charcoal font-sans antialiased min-h-screen flex flex-col justify-between">
+
+  <!-- AUTH / PIN LOCK SCREEN -->
+  <div id="adminLockScreen" class="fixed inset-0 z-50 bg-ocean-dark flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-sm w-full p-8 text-center space-y-6 shadow-2xl border border-sand-200">
+      <div class="space-y-1">
+        <span class="font-serif text-2xl tracking-[0.2em] font-medium text-ocean-dark block">NUSARA</span>
+        <span class="text-[9px] tracking-[0.35em] text-gold uppercase block font-sans">ADMIN STUDIO</span>
+      </div>
+      
+      <div>
+        <h3 class="font-serif text-lg font-medium text-ocean-dark">Akses Keamanan Studio</h3>
+        <p class="text-xs text-charcoal/60 mt-1">Masukkan PIN untuk mengelola katalog & WhatsApp Concierge.</p>
+      </div>
+
+      <form id="adminPinForm" class="space-y-3">
+        <input 
+          type="password" 
+          id="adminPinInput" 
+          placeholder="Masukkan PIN" 
+          required 
+          class="w-full text-center tracking-widest text-base font-mono bg-sand-50 border border-sand-300 rounded-xl px-4 py-3 text-charcoal focus:outline-none focus:border-ocean-dark"
+        />
+        <p id="pinErrorMessage" class="text-xs text-red-500 hidden font-medium">PIN tidak sesuai. Silakan coba lagi.</p>
+        <button type="submit" class="w-full btn-primary py-3 text-xs bg-ocean-dark">
+          <span>Buka Studio</span>
+          <i data-lucide="arrow-right" class="w-4 h-4"></i>
+        </button>
+      </form>
+
+      <div class="pt-2 border-t border-sand-200 text-[11px] text-charcoal/50 flex flex-col items-center gap-1">
+        <span>PIN Bawaan: <code class="bg-sand-100 px-1.5 py-0.5 rounded font-mono text-ocean-dark font-semibold">nusara2026</code></span>
+        <a href="index.html" class="text-terracotta hover:underline mt-1">← Kembali ke Website</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOP ADMIN BAR -->
+  <header class="bg-ocean-dark text-white border-b border-white/10 sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      
+      <!-- Logo & Studio Tag -->
+      <div class="flex items-center gap-4">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="font-serif text-2xl tracking-[0.2em] font-medium text-white">NUSARA</span>
+            <span class="bg-terracotta text-white text-[10px] uppercase tracking-widest font-bold px-2 py-0.5 rounded">STUDIO</span>
+          </div>
+          <span class="text-[10px] tracking-[0.25em] text-sand-300 uppercase block -mt-1 font-sans">Curator Dashboard · Maldives Portal</span>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex items-center gap-3">
+        <!-- Back to Live Store -->
+        <a href="index.html" target="_blank" class="hidden sm:inline-flex items-center gap-1.5 text-xs text-sand-200 hover:text-white bg-white/10 hover:bg-white/20 px-3.5 py-2 rounded-full transition-colors">
+          <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+          <span>Lihat Website</span>
+        </a>
+
+        <!-- Export data.js button -->
+        <button onclick="exportDataJsFile()" class="hidden md:inline-flex items-center gap-1.5 text-xs text-gold border border-gold/40 hover:bg-gold/10 px-3.5 py-2 rounded-full transition-colors" title="Download data.js terbaru untuk diunggah ke hosting">
+          <i data-lucide="download" class="w-3.5 h-3.5"></i>
+          <span>Download data.js</span>
+        </button>
+
+        <!-- New Product Button -->
+        <button onclick="openNewProductModal()" class="btn-primary text-xs py-2.5 px-4 shadow-md bg-terracotta hover:bg-terracotta-dark">
+          <i data-lucide="plus" class="w-4 h-4"></i>
+          <span>Tambah Produk Baru</span>
+        </button>
+
+        <!-- Logout / Lock Studio -->
+        <button onclick="adminLogout()" class="p-2 text-sand-300 hover:text-white hover:bg-white/10 rounded-lg transition-colors" title="Kunci / Keluar Admin Studio">
+          <i data-lucide="lock" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- MAIN ADMIN CONTAINER -->
+  <main class="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full space-y-8">
+
+    <!-- DASHBOARD STATS & HOTLINE ROW -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+      
+      <!-- Stats Overview (8 cols) -->
+      <div class="lg:col-span-8 grid grid-cols-2 sm:grid-cols-4 gap-4">
+        <div class="bg-white p-5 rounded-2xl border border-sand-200 shadow-xs">
+          <span class="text-[11px] font-semibold uppercase tracking-wider text-charcoal/60 block mb-1">Total Produk</span>
+          <div class="font-serif text-3xl font-medium text-ocean-dark" id="statTotalProducts">8</div>
+          <span class="text-[10px] text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full inline-block mt-2">Katalog Aktif</span>
+        </div>
+
+        <div class="bg-white p-5 rounded-2xl border border-sand-200 shadow-xs">
+          <span class="text-[11px] font-semibold uppercase tracking-wider text-charcoal/60 block mb-1">Resort Linen</span>
+          <div class="font-serif text-3xl font-medium text-ocean-dark" id="statLinenProducts">3</div>
+          <span class="text-[10px] text-charcoal/50 mt-2 block">Koleksi Kasual</span>
+        </div>
+
+        <div class="bg-white p-5 rounded-2xl border border-sand-200 shadow-xs">
+          <span class="text-[11px] font-semibold uppercase tracking-wider text-charcoal/60 block mb-1">Silk & Abayas</span>
+          <div class="font-serif text-3xl font-medium text-ocean-dark" id="statSilkProducts">2</div>
+          <span class="text-[10px] text-charcoal/50 mt-2 block">Luxury Evening</span>
+        </div>
+
+        <div class="bg-white p-5 rounded-2xl border border-sand-200 shadow-xs">
+          <span class="text-[11px] font-semibold uppercase tracking-wider text-charcoal/60 block mb-1">Target Pasar</span>
+          <div class="font-serif text-2xl font-medium text-ocean-dark">Maldives</div>
+          <span class="text-[10px] text-gold font-semibold uppercase mt-2 block">USD · MVR</span>
+        </div>
+      </div>
+
+      <!-- Quick Hotline Settings Card (4 cols) -->
+      <div class="lg:col-span-4 bg-white p-6 rounded-2xl border border-sand-200 shadow-xs space-y-4">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <i data-lucide="message-circle" class="w-5 h-5 text-emerald-600"></i>
+            <h3 class="font-serif text-base font-medium text-ocean-dark">WhatsApp Concierge</h3>
+          </div>
+          <span class="text-[10px] text-emerald-700 font-semibold uppercase bg-emerald-50 px-2 py-0.5 rounded-full">Terkoneksi</span>
+        </div>
+
+        <div class="space-y-3">
+          <div>
+            <label class="block text-[11px] font-semibold uppercase tracking-wider text-charcoal/70 mb-1">Nomor WhatsApp (dengan kode negara)</label>
+            <input 
+              type="text" 
+              id="settingsWaPhone" 
+              placeholder="6281234567890" 
+              class="w-full bg-sand-50 border border-sand-300 rounded-lg px-3 py-2 text-xs font-mono text-charcoal focus:outline-none focus:border-ocean-dark"
+            />
+          </div>
+          <div>
+            <label class="block text-[11px] font-semibold uppercase tracking-wider text-charcoal/70 mb-1">Tampilan Teks Nomor</label>
+            <input 
+              type="text" 
+              id="settingsWaDisplay" 
+              placeholder="+62 812-3456-7890" 
+              class="w-full bg-sand-50 border border-sand-300 rounded-lg px-3 py-2 text-xs text-charcoal focus:outline-none focus:border-ocean-dark"
+            />
+          </div>
+          <button id="saveSettingsBtn" class="w-full btn-wa-gold py-2 text-xs">
+            <i data-lucide="save" class="w-3.5 h-3.5"></i>
+            <span>Simpan Nomor Hotline</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- PRODUCT MANAGEMENT SECTION -->
+    <div class="bg-white rounded-3xl border border-sand-200 shadow-xs overflow-hidden">
+      
+      <!-- Section Header & Filter Toolbar -->
+      <div class="p-6 border-b border-sand-200 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <h2 class="font-serif text-2xl text-ocean-dark font-medium">Manajemen Produk Kurasi</h2>
+          <p class="text-xs text-charcoal/70 mt-0.5">Kelola koleksi busana modest yang tampil langsung di website pelanggan.</p>
+        </div>
+
+        <!-- Filter Controls -->
+        <div class="flex flex-wrap items-center gap-3">
+          <!-- Search input -->
+          <div class="relative w-full sm:w-64">
+            <input 
+              type="text" 
+              id="adminSearch" 
+              placeholder="Cari nama, SKU, bahan..." 
+              class="w-full bg-sand-50 border border-sand-300 rounded-full py-2 pl-9 pr-4 text-xs text-charcoal placeholder-charcoal/40 focus:outline-none focus:border-ocean-dark"
+            />
+            <i data-lucide="search" class="w-4 h-4 text-charcoal/40 absolute left-3 top-2.5"></i>
+          </div>
+
+          <!-- Category filter -->
+          <select id="adminCategoryFilter" class="bg-sand-50 border border-sand-300 rounded-full py-2 px-4 text-xs text-charcoal font-medium focus:outline-none focus:border-ocean-dark">
+            <option value="all">Semua Kategori</option>
+            <option value="resort-linen">Resort Linen</option>
+            <option value="silk-abayas">Silk Abayas</option>
+            <option value="kaftans">Island Kaftans</option>
+            <option value="artisanal">Artisanal</option>
+          </select>
+
+          <!-- Reset Button -->
+          <button onclick="resetToDefaultCatalog()" class="text-xs text-charcoal/60 hover:text-terracotta border border-sand-300 hover:border-terracotta px-3 py-2 rounded-full transition-colors" title="Kembalikan ke 8 koleksi default">
+            <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Products Table -->
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse">
+          <thead>
+            <tr class="bg-sand-50/70 border-b border-sand-200 text-[11px] font-semibold uppercase tracking-wider text-charcoal/60">
+              <th class="p-4">Produk & Desainer</th>
+              <th class="p-4">Kategori & Tag</th>
+              <th class="p-4">Bahan & Iklim</th>
+              <th class="p-4">Harga (USD / MVR)</th>
+              <th class="p-4 text-right">Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="adminProductsTableBody">
+            <!-- Dynamically populated via js/admin.js -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Empty State -->
+      <div id="adminEmptyState" class="hidden text-center py-16">
+        <i data-lucide="package-open" class="w-10 h-10 text-sand-300 mx-auto mb-2"></i>
+        <h4 class="font-serif text-lg text-ocean-dark">Tidak ada produk ditemukan</h4>
+        <p class="text-xs text-charcoal/60 mt-1">Coba bersihkan pencarian atau tambahkan produk baru.</p>
+      </div>
+
+    </div>
+
+    <!-- QUICK INSTRUCTIONS CARD -->
+    <div class="bg-sand-100/70 border border-sand-200 rounded-2xl p-6 text-xs text-charcoal/80 space-y-2">
+      <div class="flex items-center gap-2 font-semibold text-ocean-dark">
+        <i data-lucide="info" class="w-4 h-4 text-terracotta"></i>
+        <span>Informasi Sinkronisasi Langsung:</span>
+      </div>
+      <p>
+        Setiap kali Anda menambah, mengedit, atau menghapus produk di sini, data <strong>langsung tersimpan otomatis di browser</strong> dan langsung tampil di halaman katalog utama <a href="index.html" target="_blank" class="text-terracotta font-semibold underline">index.html</a> tanpa perlu reload server.
+      </p>
+      <p>
+        Jika Anda berencana mendeploy website ini ke hosting online (seperti Vercel atau Netlify), klik tombol <strong>"Download data.js"</strong> di atas, lalu timpa file <code class="bg-white px-1.5 py-0.5 rounded border border-sand-300 font-mono">js/data.js</code> dengan file unduhan tersebut agar perubahan Anda tersimpan permanen di repositori kode.
+      </p>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-white border-t border-sand-200 py-6 text-center text-xs text-charcoal/60">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
+      <span>NUSARA COLLECTION STUDIO — Sistem Kurator Modest Wear Indonesia untuk Maldives</span>
+      <a href="index.html" class="text-terracotta hover:underline font-medium">Buka Website Pelanggan →</a>
+    </div>
+  </footer>
+
+  <!-- MODAL: ADD / EDIT PRODUCT -->
+  <div id="productModal" class="hidden fixed inset-0 z-50 overflow-y-auto">
+    <div class="min-h-screen px-4 text-center flex items-center justify-center py-8">
+      <!-- Backdrop -->
+      <div class="fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity" onclick="closeProductModal()"></div>
+
+      <!-- Modal Card -->
+      <div class="relative bg-white text-left rounded-3xl max-w-3xl w-full p-6 sm:p-8 shadow-2xl z-10 border border-sand-200 max-h-[90vh] overflow-y-auto">
+        
+        <div class="flex items-center justify-between pb-4 border-b border-sand-200 mb-6">
+          <div>
+            <span class="text-xs font-semibold text-terracotta uppercase tracking-wider block">Formulir Kurasi</span>
+            <h3 class="font-serif text-2xl font-medium text-ocean-dark" id="modalFormTitle">Tambah Produk Kurasi Baru</h3>
+          </div>
+          <button onclick="closeProductModal()" class="text-charcoal/50 hover:text-charcoal p-2 rounded-full hover:bg-sand-100 transition-colors">
+            <i data-lucide="x" class="w-6 h-6"></i>
+          </button>
+        </div>
+
+        <form id="productModalForm" class="space-y-5">
+          
+          <!-- Row 1: Name & SKU -->
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div class="sm:col-span-2">
+              <label class="block text-xs font-semibold uppercase tracking-wider text-charcoal/80 mb-1">Nama Produk / Koleksi *</label>
+              <input 
+                type="text" 
+                id="productName" 
+                required 
+                placeholder="misal: The Baa Atoll Linen Abaya" 
+                class="w-full bg-sand-50 border border-sand-300 rounded-xl px-4 py-2.5 text-xs text-charcoal focus:outline-none focus:border-ocean-dark"
+              />
+            </div>
+            <div>
+              <div class="flex items-center justify-between mb-1">
+                <label class="text-xs font-semibold uppercase tracking-wider text-charcoal/80">SKU Code *</label>
+                <button type="button" onclick="generateNewSKU()" class="text-[10px] text-terracotta hover:underline font-semibold">Auto</button>
+              </div>
+              <input 
+                type="text" 
+                id="productSku" 
+                required 
+                placeholder="NSR-LNN-101" 
+                class="w-full bg-sand-50 border border-sand-300 rounded-xl px-4 py-2.5 text-xs font-mono uppercase text-charcoal focus:outline-none focus:border-ocean-dark"
+              />
+            </div>
+          </div>
+
+          <!-- Row 2: Category, Tag, Price, Designer -->
+          <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
+            <div>
+              <label class="block text-xs font-semibold uppercase tracking-wider text-charcoal/80 mb-1">Kategori *</label>
+              <select id="productCategory" required class="w-full bg-sand-50 border border-sand-300 rounded-xl px-3 py-2.5 text-xs text-charcoal focus:outline-none focus:border-ocean-dark">
+                <option value="resort-linen">Resort Linen</option>
+                <option value="silk-abayas">Silk Abayas</option>
+                <option value="kaftans">Island Kaftans</option>
+                <option value="artisanal">Artisanal & Eco-Print</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold uppercase tracking-wider text-charcoal/80 mb-1">Badge Tag</label>
+              <input 
+                type="text" 
+                id="productTag" 
+                placeholder="Best Seller / Exclusive" 
+                class="w-full bg-sand-50 border border-sand-300 rounded-xl px-3 py-2.5 text-xs text-charcoal focus:outline-none focus:border-ocean-dark"
+              />
+            </div>
+            <div>
+              <label class="block text-xs font-semibold uppercase tracking-wider text-charcoal/80 mb-1">Harga USD ($) *</label>
+              <input 
+                type="number" 
+                id="productPrice" 
+                required 
+                min="1" 
+                step="1" 
+                placeholder="185" 
+                class="w-full bg-sand-50 border border-sand-300 rounded-xl px-3 py-2.5 text-xs text-charcoal focus:outline-none focus:border-ocean-dark"
+              />
+            </div>
+            <div>
+              <label class="block text-xs font-semibold uppercase tracking-wider text-charcoal/80 mb-1">Desainer / Atelier</label>
+              <input 
+                type="text" 
+                id="productDesigner" 
+                placeholder="Studio Senja Bandung" 
+                class="w-full bg-sand-50 border border-sand-300 rounded-xl px-3 py-2.5 text-xs text-charcoal focus:outline-none focus:border-ocean-dark"
+              />
+            </div>
+          </div>
+
+          <!-- Row 3: Fabric & Climate Specs -->
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div>
+              <label class="block text-xs font-semibold uppercase tracking-wider text-charcoal/80 mb-1">Komposisi Kain *</label>
+              <input 
+                type="text" 
+                id="productFabric" 
+                required 
+                placeholder="100% Breathable Enzyme-Washed Linen" 
+                class="w-full bg-sand-50 border border-sand-300 rounded-xl px-3 py-2.5 text-xs text-charcoal focus:outline-none focus:border-ocean-dark"
+              />
+            </div>
+            <div>
+              <label class="block text-xs font-semibold uppercase tracking-wider text-charcoal/80 mb-1">Kesesuaian Iklim</label>
+              <input 
+                type="text" 
+                id="productClimate" 
+                placeholder="5/5 Ultra-Breathable for Island Heat" 
+                class="w-full bg-sand-50 border border-sand-300 rounded-xl px-3 py-2.5 text-xs text-charcoal focus:outline-none focus:border-ocean-dark"
+              />
+            </div>
+            <div>
+              <label class="block text-xs font-semibold uppercase tracking-wider text-charcoal/80 mb-1">Tingkat Modesty / Opacity</label>
+              <input 
+                type="text" 
+                id="productOpacity" 
+                placeholder="Full Coverage (Non-sheer)" 
+                class="w-full bg-sand-50 border border-sand-300 rounded-xl px-3 py-2.5 text-xs text-charcoal focus:outline-none focus:border-ocean-dark"
+              />
+            </div>
+          </div>
+
+          <!-- Row 4: Colors & Sizes -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-semibold uppercase tracking-wider text-charcoal/80 mb-1">Pilihan Warna (Pisahkan dengan koma)</label>
+              <input 
+                type="text" 
+                id="productColors" 
+                placeholder="Sand Dune, Sage Mist, Ocean Navy" 
+                class="w-full bg-sand-50 border border-sand-300 rounded-xl px-3 py-2.5 text-xs text-charcoal focus:outline-none focus:border-ocean-dark"
+              />
+            </div>
+            <div>
+              <label class="block text-xs font-semibold uppercase tracking-wider text-charcoal/80 mb-1">Pilihan Ukuran (Pisahkan dengan koma)</label>
+              <input 
+                type="text" 
+                id="productSizes" 
+                placeholder="S-M, L-XL, Custom Resort Length" 
+                class="w-full bg-sand-50 border border-sand-300 rounded-xl px-3 py-2.5 text-xs text-charcoal focus:outline-none focus:border-ocean-dark"
+              />
+            </div>
+          </div>
+
+          <!-- Row 5: Images & Live Preview -->
+          <div class="grid grid-cols-1 sm:grid-cols-12 gap-4 items-start">
+            <div class="sm:col-span-9 space-y-3">
+              <div>
+                <label class="block text-xs font-semibold uppercase tracking-wider text-charcoal/80 mb-1">URL Foto Utama *</label>
+                <input 
+                  type="url" 
+                  id="productImage" 
+                  required 
+                  placeholder="https://images.unsplash.com/..." 
+                  class="w-full bg-sand-50 border border-sand-300 rounded-xl px-3 py-2.5 text-xs font-mono text-charcoal focus:outline-none focus:border-ocean-dark"
+                />
+              </div>
+              <div>
+                <label class="block text-xs font-semibold uppercase tracking-wider text-charcoal/80 mb-1">URL Foto Tambahan / Lookbook 2 (Opsional)</label>
+                <input 
+                  type="url" 
+                  id="productSecondaryImage" 
+                  placeholder="https://images.unsplash.com/..." 
+                  class="w-full bg-sand-50 border border-sand-300 rounded-xl px-3 py-2.5 text-xs font-mono text-charcoal focus:outline-none focus:border-ocean-dark"
+                />
+              </div>
+            </div>
+
+            <!-- Preview box -->
+            <div class="sm:col-span-3">
+              <label class="block text-[11px] font-semibold uppercase tracking-wider text-charcoal/70 mb-1">Preview Foto</label>
+              <div class="w-full aspect-[3/4] bg-sand-100 rounded-xl border border-sand-300 overflow-hidden flex items-center justify-center">
+                <img id="imagePreviewBox" src="" class="hidden w-full h-full object-cover">
+                <span class="text-[10px] text-charcoal/40 text-center px-2">Paste URL foto untuk melihat preview</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Row 6: Descriptions -->
+          <div class="space-y-3">
+            <div>
+              <label class="block text-xs font-semibold uppercase tracking-wider text-charcoal/80 mb-1">Deskripsi Singkat (Tampil di kartu katalog)</label>
+              <input 
+                type="text" 
+                id="productShortDesc" 
+                placeholder="Gamis abaya linen sejuk dengan potongan rileks untuk suasana resort Maldives." 
+                class="w-full bg-sand-50 border border-sand-300 rounded-xl px-3 py-2.5 text-xs text-charcoal focus:outline-none focus:border-ocean-dark"
+              />
+            </div>
+            <div>
+              <label class="block text-xs font-semibold uppercase tracking-wider text-charcoal/80 mb-1">Deskripsi Lengkap (Tampil di Quick View)</label>
+              <textarea 
+                id="productDesc" 
+                rows="3" 
+                placeholder="Jelaskan keistimewaan jahitan, asal usul tenun/desainer, dan kenyamanan kain di iklim Maldives..." 
+                class="w-full bg-sand-50 border border-sand-300 rounded-xl p-3 text-xs text-charcoal focus:outline-none focus:border-ocean-dark"
+              ></textarea>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold uppercase tracking-wider text-charcoal/80 mb-1">Catatan Styling Resort (Tips untuk Tamu)</label>
+              <input 
+                type="text" 
+                id="productStylingNotes" 
+                placeholder="Cocok dipadukan dengan sandal kulit santai saat sunset atau scarf sutra untuk makan malam beachfront." 
+                class="w-full bg-sand-50 border border-sand-300 rounded-xl px-3 py-2.5 text-xs text-charcoal focus:outline-none focus:border-ocean-dark"
+              />
+            </div>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="pt-5 border-t border-sand-200 flex items-center justify-end gap-3">
+            <button type="button" onclick="closeProductModal()" class="btn-secondary py-2.5 px-6 text-xs">
+              Batal
+            </button>
+            <button type="submit" class="btn-primary py-2.5 px-6 text-xs bg-ocean-dark">
+              <i data-lucide="check" class="w-4 h-4"></i>
+              <span>Simpan Produk</span>
+            </button>
+          </div>
+
+        </form>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- DELETE CONFIRMATION MODAL -->
+  <div id="deleteConfirmModal" class="hidden fixed inset-0 z-50 overflow-y-auto">
+    <div class="min-h-screen px-4 text-center flex items-center justify-center py-8">
+      <div class="fixed inset-0 bg-black/60 backdrop-blur-sm" onclick="cancelDelete()"></div>
+      <div class="relative bg-white rounded-2xl max-w-sm w-full p-6 text-center z-10 border border-sand-200 space-y-4">
+        <div class="w-12 h-12 rounded-full bg-red-100 text-red-600 flex items-center justify-center mx-auto">
+          <i data-lucide="trash-2" class="w-6 h-6"></i>
+        </div>
+        <div>
+          <h4 class="font-serif text-lg font-medium text-ocean-dark">Hapus Produk Ini?</h4>
+          <p class="text-xs text-charcoal/70 mt-1">
+            Produk "<strong id="deleteProductName" class="text-ocean-dark"></strong>" akan dihapus dari katalog live.
+          </p>
+        </div>
+        <div class="flex items-center justify-center gap-3 pt-2">
+          <button onclick="cancelDelete()" class="btn-secondary py-2 px-4 text-xs">Batal</button>
+          <button onclick="executeDelete()" class="btn-primary py-2 px-4 text-xs bg-red-600 hover:bg-red-700">Ya, Hapus</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCRIPTS -->
+  <script src="js/data.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>
