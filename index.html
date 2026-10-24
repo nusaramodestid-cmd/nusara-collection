@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NUSARA COLLECTION — Curated Indonesian Modest Wear for Maldives</title>
+  <meta name="description" content="Discover curated Indonesian modest fashion for the Maldives. Breathable resort linens, pure silk abayas, and flowy island kaftans delivered directly to Malé and private atoll resorts.">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            sand: {
+              50: '#faf8f5',
+              100: '#f5f0eb',
+              200: '#eadfd3',
+              300: '#dccebe',
+            },
+            terracotta: {
+              DEFAULT: '#b86b4d',
+              dark: '#985135',
+              light: '#f7ebe6',
+            },
+            sage: {
+              DEFAULT: '#6e7f6e',
+              light: '#ebf0eb',
+            },
+            ocean: {
+              dark: '#142a25',
+              muted: '#2d4841',
+            },
+            gold: '#c4a47c',
+            charcoal: '#1f1d1c'
+          },
+          fontFamily: {
+            serif: ['"Playfair Display"', 'Georgia', 'serif'],
+            cormorant: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-sand-50 text-charcoal font-sans antialiased selection:bg-terracotta selection:text-white">
+
+  <!-- TOP LUXURY ANNOUNCEMENT BAR -->
+  <div class="bg-ocean-dark text-sand-100 text-[11px] tracking-widest uppercase py-2.5 px-4">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-2 text-center md:text-left">
+      <div class="flex items-center gap-2">
+        <span class="inline-block w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
+        <span>Express Delivery to Malé & Resort Speedboat Transfer Available</span>
+      </div>
+      <div class="flex items-center gap-4 sm:gap-6">
+        <span class="hidden md:inline text-sand-300">Curated from Jakarta & Bandung</span>
+        <a href="admin.html" class="inline-flex items-center gap-1 text-gold hover:text-white transition-colors bg-white/10 hover:bg-white/20 px-2.5 py-0.5 rounded-full text-[10px] tracking-normal font-semibold">
+          <i data-lucide="shield" class="w-3 h-3"></i>
+          <span>Admin Studio</span>
+        </a>
+        <div class="flex items-center gap-1.5 border-l border-sand-300/30 pl-4">
+          <label for="currencySelectTop" class="text-sand-300 text-[10px]">CURRENCY:</label>
+          <select id="currencySelectTop" class="currency-select bg-transparent text-white font-semibold cursor-pointer focus:outline-none text-[11px]">
+            <option value="USD" class="text-charcoal" selected>USD ($)</option>
+            <option value="MVR" class="text-charcoal">MVR (Rf)</option>
+            <option value="IDR" class="text-charcoal">IDR (Rp)</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STICKY NAVIGATION -->
+  <header class="sticky top-0 z-40 glass-header">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      
+      <!-- Left: Mobile Menu Trigger & Main Links -->
+      <div class="flex items-center gap-8">
+        <button id="mobileMenuToggle" class="lg:hidden p-2 text-ocean-dark hover:text-terracotta focus:outline-none">
+          <i data-lucide="menu" class="w-6 h-6"></i>
+        </button>
+
+        <nav class="hidden lg:flex items-center gap-8 text-xs font-semibold uppercase tracking-widest text-charcoal/80">
+          <a href="#curations" class="hover:text-terracotta transition-colors">Lookbook</a>
+          <a href="#philosophy" class="hover:text-terracotta transition-colors">The Curation</a>
+          <a href="#fabrics" class="hover:text-terracotta transition-colors">Island Fabrics</a>
+          <a href="#concierge" class="hover:text-terracotta transition-colors">Resort Concierge</a>
+          <a href="#maldives-logistics" class="hover:text-terracotta transition-colors">Maldives Delivery</a>
+        </nav>
+      </div>
+
+      <!-- Center: Brand Logo -->
+      <div class="text-center">
+        <a href="#" class="inline-block group">
+          <span class="font-serif text-2xl sm:text-3xl tracking-[0.22em] font-medium text-ocean-dark block group-hover:text-terracotta transition-colors">NUSARA</span>
+          <span class="text-[9px] tracking-[0.35em] text-[#8e857e] uppercase block font-sans -mt-1">JAKARTA · MALÉ</span>
+        </a>
+      </div>
+
+      <!-- Right: Search, Lookbook Bag, WhatsApp CTA -->
+      <div class="flex items-center gap-4">
+        <!-- Quick Search Link -->
+        <a href="#curations" class="p-2 text-ocean-dark hover:text-terracotta transition-colors" title="Search Lookbook">
+          <i data-lucide="search" class="w-5 h-5"></i>
+        </a>
+
+        <!-- Lookbook Bag Trigger -->
+        <button class="open-bag-btn relative p-2 text-ocean-dark hover:text-terracotta transition-colors" title="View Lookbook Bag">
+          <i data-lucide="shopping-bag" class="w-5 h-5"></i>
+          <span class="bag-count-badge hidden absolute top-0.5 right-0.5 bg-terracotta text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
+            0
+          </span>
+        </button>
+
+        <!-- Direct WhatsApp Concierge Button -->
+        <a href="https://wa.me/6281234567890?text=Hello%20Nusara%20Concierge!%20I%20would%20like%20to%20inquire%20about%20curated%20Indonesian%20modest%20wear%20for%20the%20Maldives." 
+           target="_blank" 
+           class="hidden sm:inline-flex btn-wa-gold text-xs px-4 py-2">
+          <i data-lucide="message-circle" class="w-4 h-4"></i>
+          <span>Concierge</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO SECTION: EDITORIAL LUXURY -->
+  <section class="relative min-h-[85vh] flex items-center justify-center overflow-hidden bg-sand-100">
+    <!-- Background Image with Soft Vignette -->
+    <div class="absolute inset-0 z-0">
+      <img 
+        src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=2000&q=80" 
+        alt="Maldives Tropical Resort" 
+        class="w-full h-full object-cover object-center filter brightness-[0.88] contrast-[0.95]"
+      />
+      <div class="absolute inset-0 bg-gradient-to-r from-sand-50/95 via-sand-50/80 to-transparent"></div>
+    </div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      <div class="lg:col-span-7 space-y-6">
+        
+        <!-- Category Pill -->
+        <div class="inline-flex items-center gap-2 bg-white/90 backdrop-blur-md px-4 py-1.5 rounded-full border border-sand-200 shadow-sm">
+          <i data-lucide="palmtree" class="w-3.5 h-3.5 text-terracotta"></i>
+          <span class="text-[11px] font-semibold tracking-widest uppercase text-ocean-dark">Indonesian Modest Wear Curator · Maldives</span>
+        </div>
+
+        <!-- Main Title -->
+        <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl text-ocean-dark font-medium leading-[1.12]">
+          Indonesian Modest Elegance, <br>
+          <span class="italic font-normal text-terracotta">Curated for Island Splendor.</span>
+        </h1>
+
+        <!-- Subtitle -->
+        <p class="text-base sm:text-lg text-charcoal/80 max-w-xl font-sans leading-relaxed">
+          Breathable pure linens, whisper-light raw silks, and graceful silhouettes from Indonesia's leading modest ateliers — tailored specifically for the warm, humid paradise of the Maldives.
+        </p>
+
+        <!-- CTA Buttons -->
+        <div class="pt-4 flex flex-wrap items-center gap-4">
+          <a href="#curations" class="btn-primary">
+            <span>Explore Curated Lookbook</span>
+            <i data-lucide="arrow-down" class="w-4 h-4"></i>
+          </a>
+          <a href="#concierge" class="btn-secondary">
+            <span>Request Resort Styling</span>
+            <i data-lucide="sparkles" class="w-4 h-4 text-terracotta"></i>
+          </a>
+        </div>
+
+        <!-- Value Proposition Badges -->
+        <div class="pt-8 border-t border-sand-300/60 grid grid-cols-3 gap-4 max-w-lg">
+          <div>
+            <span class="block font-serif text-xl sm:text-2xl font-semibold text-ocean-dark">100%</span>
+            <span class="text-[11px] text-charcoal/70 uppercase tracking-wider block mt-0.5">Breathable Fibers</span>
+          </div>
+          <div>
+            <span class="block font-serif text-xl sm:text-2xl font-semibold text-ocean-dark">Direct</span>
+            <span class="text-[11px] text-charcoal/70 uppercase tracking-wider block mt-0.5">Malé & Resort Villa</span>
+          </div>
+          <div>
+            <span class="block font-serif text-xl sm:text-2xl font-semibold text-ocean-dark">Curated</span>
+            <span class="text-[11px] text-charcoal/70 uppercase tracking-wider block mt-0.5">Indonesian Ateliers</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Hero Visual Accent Card -->
+      <div class="lg:col-span-5 hidden lg:block">
+        <div class="relative bg-white/80 backdrop-blur-md p-4 rounded-3xl shadow-2xl border border-white/60">
+          <div class="relative rounded-2xl overflow-hidden aspect-[4/5] shadow-inner">
+            <img 
+              src="https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?auto=format&fit=crop&w=900&q=80" 
+              alt="The Baa Atoll Linen Abaya" 
+              class="w-full h-full object-cover"
+            />
+            <div class="absolute bottom-4 inset-x-4 bg-ocean-dark/85 backdrop-blur-md text-white p-4 rounded-xl flex items-center justify-between">
+              <div>
+                <span class="text-[10px] text-gold uppercase tracking-widest block">Featured Piece</span>
+                <h4 class="font-serif text-base font-medium">The Baa Atoll Linen Abaya</h4>
+                <p class="text-[11px] text-sand-200">100% Enzyme-Washed Indonesian Linen</p>
+              </div>
+              <button onclick="openQuickView('nc-01')" class="bg-white/20 hover:bg-white text-white hover:text-ocean-dark p-2.5 rounded-full transition-colors">
+                <i data-lucide="eye" class="w-4 h-4"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BRAND PHILOSOPHY: FROM THE ARCHIPELAGO TO THE ATOLLS -->
+  <section id="philosophy" class="py-24 bg-sand-50 relative border-b border-sand-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        <div class="lg:col-span-5 order-2 lg:order-1">
+          <div class="relative grid grid-cols-2 gap-4">
+            <div class="space-y-4">
+              <div class="rounded-2xl overflow-hidden shadow-md aspect-[3/4]">
+                <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=800&q=80" alt="Modest elegance" class="w-full h-full object-cover">
+              </div>
+              <div class="bg-sand-200/80 p-6 rounded-2xl">
+                <span class="text-xs uppercase tracking-widest text-terracotta font-semibold block mb-1">Curation Standard</span>
+                <p class="font-serif text-base italic text-ocean-dark">"Modesty that flows like the ocean breeze, crafted with dignity and effortless ease."</p>
+              </div>
+            </div>
+            <div class="space-y-4 pt-8">
+              <div class="bg-ocean-dark text-white p-6 rounded-2xl">
+                <span class="text-xs uppercase tracking-widest text-gold font-semibold block mb-1">Jakarta Atelier</span>
+                <p class="text-xs text-sand-200 leading-relaxed">Direct partnerships with high-end Indonesian designers ensuring ethical, limited-run modesty wear.</p>
+              </div>
+              <div class="rounded-2xl overflow-hidden shadow-md aspect-[3/4]">
+                <img src="https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?auto=format&fit=crop&w=800&q=80" alt="Resort Kaftan" class="w-full h-full object-cover">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-7 order-1 lg:order-2 space-y-6 lg:pl-8">
+          <div class="inline-flex items-center gap-2 text-terracotta text-xs font-semibold uppercase tracking-widest">
+            <span class="w-6 h-px bg-terracotta"></span>
+            <span>Why Nusara Collection</span>
+          </div>
+
+          <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl text-ocean-dark font-medium leading-tight">
+            Bridging Indonesian Craftsmanship with Maldivian Serenity.
+          </h2>
+
+          <div class="space-y-4 text-charcoal/80 text-sm sm:text-base leading-relaxed">
+            <p>
+              Indonesia stands as the world's most vibrant hub of modest fashion innovation — renowned for tailoring that harmonizes contemporary aesthetics, exquisite natural fibers, and timeless modesty.
+            </p>
+            <p>
+              Yet, living in or vacationing across the Maldives requires clothing that respects warm tropical humidity. Heavy polyester abayas and synthetic fabrics fall short. 
+            </p>
+            <p>
+              <strong>Nusara Collection acts as your personal fashion curator</strong>. We travel across Indonesia — from design studios in Jakarta to artisanal weaving villages in Bandung, Yogyakarta, and Bali — handpicking silhouettes made strictly from cooling linens, pure silk crepes, and breathable tencel blends.
+            </p>
+          </div>
+
+          <div class="pt-4 flex flex-wrap gap-6 text-xs font-semibold text-ocean-dark uppercase tracking-wider">
+            <div class="flex items-center gap-2">
+              <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600"></i>
+              <span>Anti-Humidity Tested</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600"></i>
+              <span>Full Modest Coverage</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600"></i>
+              <span>Personalized Concierge</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FABRIC EXCELLENCE BANNER -->
+  <section id="fabrics" class="py-16 bg-sand-100 border-b border-sand-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-2xl mx-auto mb-12">
+        <span class="text-xs uppercase tracking-widest text-terracotta font-semibold block mb-2">Climate Engineered</span>
+        <h3 class="font-serif text-2xl sm:text-3xl text-ocean-dark font-medium">Four Pillars of Tropical Modesty</h3>
+        <p class="text-xs sm:text-sm text-charcoal/70 mt-2">Every garment in our collection is rigorously evaluated for island climate performance.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Feature 1 -->
+        <div class="bg-white p-6 rounded-2xl border border-sand-200 hover:shadow-lg transition-all duration-300">
+          <div class="w-12 h-12 rounded-xl bg-sand-100 flex items-center justify-center text-ocean-dark mb-4">
+            <i data-lucide="wind" class="w-6 h-6 text-terracotta"></i>
+          </div>
+          <h4 class="font-serif text-lg font-medium text-ocean-dark mb-1">Enzyme-Washed Linen</h4>
+          <p class="text-xs text-charcoal/70 leading-relaxed">French flax linen processed in Indonesia with organic enzymes for buttery softness that breathes effortlessly.</p>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="bg-white p-6 rounded-2xl border border-sand-200 hover:shadow-lg transition-all duration-300">
+          <div class="w-12 h-12 rounded-xl bg-sand-100 flex items-center justify-center text-ocean-dark mb-4">
+            <i data-lucide="droplets" class="w-6 h-6 text-terracotta"></i>
+          </div>
+          <h4 class="font-serif text-lg font-medium text-ocean-dark mb-1">Mulberry Silk Crepe</h4>
+          <p class="text-xs text-charcoal/70 leading-relaxed">Featherweight natural silk with subtle matte luster that resists tropical humidity cling during seaside dinners.</p>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="bg-white p-6 rounded-2xl border border-sand-200 hover:shadow-lg transition-all duration-300">
+          <div class="w-12 h-12 rounded-xl bg-sand-100 flex items-center justify-center text-ocean-dark mb-4">
+            <i data-lucide="sun-medium" class="w-6 h-6 text-terracotta"></i>
+          </div>
+          <h4 class="font-serif text-lg font-medium text-ocean-dark mb-1">Tencel Eucalyptus Modal</h4>
+          <p class="text-xs text-charcoal/70 leading-relaxed">Rapid moisture-wicking and antibacterial plant-based fibers that stay crisp and cool against sun-kissed skin.</p>
+        </div>
+
+        <!-- Feature 4 -->
+        <div class="bg-white p-6 rounded-2xl border border-sand-200 hover:shadow-lg transition-all duration-300">
+          <div class="w-12 h-12 rounded-xl bg-sand-100 flex items-center justify-center text-ocean-dark mb-4">
+            <i data-lucide="shield" class="w-6 h-6 text-terracotta"></i>
+          </div>
+          <h4 class="font-serif text-lg font-medium text-ocean-dark mb-1">Non-Sheer Modesty</h4>
+          <p class="text-xs text-charcoal/70 leading-relaxed">High-density micro-weaves and custom inner bamboo slips ensure 100% opacity under bright atoll sunlight.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN CATALOG / CURATIONS LOOKBOOK SECTION -->
+  <section id="curations" class="py-24 bg-sand-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Section Header -->
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+        <div>
+          <div class="inline-flex items-center gap-2 text-terracotta text-xs font-semibold uppercase tracking-widest mb-2">
+            <span class="w-6 h-px bg-terracotta"></span>
+            <span>Current Lookbook Edit</span>
+          </div>
+          <h2 class="font-serif text-3xl sm:text-4xl text-ocean-dark font-medium">Curated Modest Creations</h2>
+          <p class="text-xs sm:text-sm text-charcoal/70 mt-1">Direct from Indonesia's leading modest design ateliers to your Maldives wardrobe.</p>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="w-full md:w-72 relative">
+          <input 
+            type="text" 
+            id="catalogSearch" 
+            placeholder="Search piece, fabric, designer..." 
+            class="w-full bg-white border border-sand-300 rounded-full py-2.5 pl-10 pr-4 text-xs text-charcoal placeholder-charcoal/40 focus:outline-none focus:border-ocean-dark focus:ring-1 focus:ring-ocean-dark"
+          />
+          <i data-lucide="search" class="w-4 h-4 text-charcoal/50 absolute left-3.5 top-3"></i>
+        </div>
+      </div>
+
+      <!-- Category Filter Tabs -->
+      <div class="flex items-center gap-2 overflow-x-auto pb-4 mb-8 no-scrollbar" id="categoryFilters">
+        <!-- Rendered dynamically via js/app.js -->
+      </div>
+
+      <!-- Products Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8" id="productsGrid">
+        <!-- Rendered dynamically via js/app.js -->
+      </div>
+
+      <!-- Empty State -->
+      <div id="emptyProductsState" class="hidden text-center py-20 bg-white rounded-2xl border border-sand-200 mt-8">
+        <i data-lucide="sparkles" class="w-10 h-10 text-sand-300 mx-auto mb-3"></i>
+        <h4 class="font-serif text-xl text-ocean-dark">No pieces match your search</h4>
+        <p class="text-xs text-charcoal/70 mt-1 mb-4">Try clearing filters or search for another fabric/silhouette.</p>
+        <button onclick="document.getElementById('catalogSearch').value=''; searchQuery=''; renderProducts();" class="btn-secondary py-2 text-xs">
+          Clear Search
+        </button>
+      </div>
+
+      <!-- Bottom Curation Note -->
+      <div class="mt-16 p-8 bg-sand-200/50 rounded-2xl border border-sand-300/80 flex flex-col md:flex-row items-center justify-between gap-6">
+        <div class="flex items-center gap-4">
+          <div class="w-12 h-12 rounded-full bg-white flex items-center justify-center text-terracotta flex-shrink-0 shadow-sm">
+            <i data-lucide="gem" class="w-6 h-6"></i>
+          </div>
+          <div>
+            <h4 class="font-serif text-lg text-ocean-dark font-medium">Looking for a specific Indonesian designer?</h4>
+            <p class="text-xs text-charcoal/70">We source bespoke and runway pieces on request for Maldivian weddings, resort stays, and private events.</p>
+          </div>
+        </div>
+        <a href="https://wa.me/6281234567890?text=Hello%20Nusara!%20I%20am%20looking%20for%20a%20custom%20piece%20from%20an%20Indonesian%20modest%20designer." target="_blank" class="btn-wa-gold flex-shrink-0 text-xs">
+          <i data-lucide="message-circle" class="w-4 h-4"></i>
+          <span>Ask Our Curator</span>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- RESORT STYLING CONCIERGE SERVICE -->
+  <section id="concierge" class="py-24 bg-ocean-dark text-sand-100 relative overflow-hidden">
+    <!-- Ambient circle background -->
+    <div class="absolute -right-40 -top-40 w-96 h-96 rounded-full bg-terracotta/10 blur-3xl"></div>
+    <div class="absolute -left-40 -bottom-40 w-96 h-96 rounded-full bg-ocean-muted/40 blur-3xl"></div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        <div class="lg:col-span-6 space-y-6">
+          <div class="inline-flex items-center gap-2 text-gold text-xs font-semibold uppercase tracking-widest">
+            <span class="w-6 h-px bg-gold"></span>
+            <span>Bespoke Maldives Service</span>
+          </div>
+
+          <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-medium leading-tight text-white">
+            Personal Resort Styling & Villa Delivery Concierge.
+          </h2>
+
+          <p class="text-sand-300 text-sm sm:text-base leading-relaxed">
+            Planning a getaway to Soneva, Cheval Blanc Randheli, Patina, or Velaa Private Island? Or attending a special reception in Malé?
+          </p>
+          <p class="text-sand-300 text-sm leading-relaxed">
+            Share your itinerary and preferences. Our styling concierge curates a cohesive 3-7 day modest capsule wardrobe, steam-pressed and packaged in sustainable linen garment bags, delivered directly to your resort villa or Malé address.
+          </p>
+
+          <!-- 3-step concierge process -->
+          <div class="space-y-4 pt-4 border-t border-white/10">
+            <div class="flex items-start gap-4">
+              <span class="w-7 h-7 rounded-full bg-terracotta text-white flex items-center justify-center text-xs font-bold flex-shrink-0">1</span>
+              <div>
+                <h4 class="text-sm font-semibold text-white">Share Itinerary & Aesthetic</h4>
+                <p class="text-xs text-sand-300">Tell us your resort destination, activities, and sizing preferences.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <span class="w-7 h-7 rounded-full bg-terracotta text-white flex items-center justify-center text-xs font-bold flex-shrink-0">2</span>
+              <div>
+                <h4 class="text-sm font-semibold text-white">Receive Curated Digital Lookbook</h4>
+                <p class="text-xs text-sand-300">We present 5-10 tailored Indonesian modest looks with coordinating scarves & accessories.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <span class="w-7 h-7 rounded-full bg-terracotta text-white flex items-center justify-center text-xs font-bold flex-shrink-0">3</span>
+              <div>
+                <h4 class="text-sm font-semibold text-white">Direct Maldives Delivery</h4>
+                <p class="text-xs text-sand-300">We coordinate speedboat / seaplane transfer directly into your villa.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Concierge Booking Card -->
+        <div class="lg:col-span-6">
+          <div class="bg-white text-charcoal p-8 sm:p-10 rounded-3xl shadow-2xl border border-sand-200">
+            <div class="mb-6">
+              <span class="text-xs font-semibold text-terracotta uppercase tracking-wider block">Complimentary Service</span>
+              <h3 class="font-serif text-2xl font-medium text-ocean-dark mt-1">Request Resort Styling Session</h3>
+              <p class="text-xs text-charcoal/70 mt-1">Direct consultation with our senior stylist via WhatsApp or private email.</p>
+            </div>
+
+            <form id="resortConciergeForm" class="space-y-4">
+              <div>
+                <label class="block text-xs font-semibold uppercase tracking-wider text-charcoal/80 mb-1">Your Full Name</label>
+                <input 
+                  type="text" 
+                  id="conciergeName" 
+                  required 
+                  placeholder="e.g. Aishath / Maryam / Sarah" 
+                  class="w-full bg-sand-50 border border-sand-300 rounded-xl px-4 py-2.5 text-xs text-charcoal focus:outline-none focus:border-ocean-dark"
+                />
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-xs font-semibold uppercase tracking-wider text-charcoal/80 mb-1">Resort / Island Location</label>
+                  <input 
+                    type="text" 
+                    id="conciergeResort" 
+                    required 
+                    placeholder="e.g. Soneva Jani / Malé City" 
+                    class="w-full bg-sand-50 border border-sand-300 rounded-xl px-4 py-2.5 text-xs text-charcoal focus:outline-none focus:border-ocean-dark"
+                  />
+                </div>
+                <div>
+                  <label class="block text-xs font-semibold uppercase tracking-wider text-charcoal/80 mb-1">Dates / Timeline</label>
+                  <input 
+                    type="text" 
+                    id="conciergeDates" 
+                    placeholder="e.g. Next Week / Nov 15-22" 
+                    class="w-full bg-sand-50 border border-sand-300 rounded-xl px-4 py-2.5 text-xs text-charcoal focus:outline-none focus:border-ocean-dark"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-xs font-semibold uppercase tracking-wider text-charcoal/80 mb-1">Modest Preferences or Event Type</label>
+                <textarea 
+                  id="conciergeNotes" 
+                  rows="3" 
+                  placeholder="e.g. Looking for breathable linen abayas for beachfront dinners and yacht cruise..." 
+                  class="w-full bg-sand-50 border border-sand-300 rounded-xl p-3 text-xs text-charcoal focus:outline-none focus:border-ocean-dark"
+                ></textarea>
+              </div>
+
+              <button type="submit" class="w-full btn-wa-gold py-3.5 text-sm flex items-center justify-center gap-2">
+                <i data-lucide="message-circle" class="w-4 h-4"></i>
+                <span>Connect via WhatsApp Concierge</span>
+              </button>
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- MALDIVES LOGISTICS & DELIVERY EXCELLENCE -->
+  <section id="maldives-logistics" class="py-20 bg-sand-100 border-b border-sand-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <span class="text-xs uppercase tracking-widest text-terracotta font-semibold block mb-2">Island Logistics</span>
+        <h3 class="font-serif text-3xl text-ocean-dark font-medium">How Nusara Delivers in the Maldives</h3>
+        <p class="text-xs sm:text-sm text-charcoal/70 mt-2">Smooth, discreet, and reliable delivery across the Maldivian archipelago.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Step 1 -->
+        <div class="bg-white p-8 rounded-2xl border border-sand-200 text-center space-y-4">
+          <div class="w-14 h-14 rounded-full bg-sand-100 text-ocean-dark flex items-center justify-center mx-auto">
+            <i data-lucide="plane-takeoff" class="w-6 h-6 text-terracotta"></i>
+          </div>
+          <h4 class="font-serif text-xl text-ocean-dark font-medium">Jakarta to Malé Express</h4>
+          <p class="text-xs text-charcoal/70 leading-relaxed">
+            Curated batches arrive via regular air-freight directly to Velana International Airport. All customs import duties and clearance are handled by Nusara.
+          </p>
+          <span class="inline-block text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full">
+            Duty Paid & Inspected
+          </span>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="bg-white p-8 rounded-2xl border border-sand-200 text-center space-y-4">
+          <div class="w-14 h-14 rounded-full bg-sand-100 text-ocean-dark flex items-center justify-center mx-auto">
+            <i data-lucide="map-pin" class="w-6 h-6 text-terracotta"></i>
+          </div>
+          <h4 class="font-serif text-xl text-ocean-dark font-medium">Malé & Hulhumalé Hand Delivery</h4>
+          <p class="text-xs text-charcoal/70 leading-relaxed">
+            Doorstep delivery across Greater Malé and Hulhumalé within 1-2 business days. Fitting consultation and easy size swaps available.
+          </p>
+          <span class="inline-block text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full">
+            1-2 Days in City
+          </span>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="bg-white p-8 rounded-2xl border border-sand-200 text-center space-y-4">
+          <div class="w-14 h-14 rounded-full bg-sand-100 text-ocean-dark flex items-center justify-center mx-auto">
+            <i data-lucide="anchor" class="w-6 h-6 text-terracotta"></i>
+          </div>
+          <h4 class="font-serif text-xl text-ocean-dark font-medium">Resort Speedboat & Seaplane</h4>
+          <p class="text-xs text-charcoal/70 leading-relaxed">
+            We partner with registered marine transfers to deliver directly to your island resort front desk or villa butler, ready before your sunset dinner.
+          </p>
+          <span class="inline-block text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full">
+            Atoll Resorts Coordinated
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS / ISLAND PRAISE -->
+  <section class="py-24 bg-sand-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-xl mx-auto mb-14">
+        <span class="text-xs uppercase tracking-widest text-terracotta font-semibold block mb-2">Client Impressions</span>
+        <h3 class="font-serif text-3xl text-ocean-dark font-medium">Loved in the Maldives</h3>
+        <p class="text-xs sm:text-sm text-charcoal/70 mt-1">Read what island residents and luxury resort guests say about our Indonesian modest curations.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8" id="testimonialsGrid">
+        <!-- Rendered dynamically via js/app.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- INSTAGRAM / MOODBOARD SHOWCASE -->
+  <section class="py-16 bg-white border-y border-sand-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between mb-8">
+        <div>
+          <span class="text-xs uppercase tracking-widest text-terracotta font-semibold block">Social Lookbook</span>
+          <h3 class="font-serif text-2xl text-ocean-dark font-medium">#NusaraInMaldives</h3>
+        </div>
+        <a href="https://instagram.com" target="_blank" class="text-xs font-semibold text-ocean-dark hover:text-terracotta flex items-center gap-1.5 uppercase tracking-wider">
+          <i data-lucide="instagram" class="w-4 h-4"></i> Follow @nusaracollection
+        </a>
+      </div>
+
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+        <div class="rounded-xl overflow-hidden aspect-square bg-sand-100 group relative">
+          <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+          <div class="absolute inset-0 bg-ocean-dark/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white">
+            <i data-lucide="instagram" class="w-6 h-6"></i>
+          </div>
+        </div>
+        <div class="rounded-xl overflow-hidden aspect-square bg-sand-100 group relative">
+          <img src="https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+          <div class="absolute inset-0 bg-ocean-dark/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white">
+            <i data-lucide="instagram" class="w-6 h-6"></i>
+          </div>
+        </div>
+        <div class="rounded-xl overflow-hidden aspect-square bg-sand-100 group relative">
+          <img src="https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+          <div class="absolute inset-0 bg-ocean-dark/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white">
+            <i data-lucide="instagram" class="w-6 h-6"></i>
+          </div>
+        </div>
+        <div class="rounded-xl overflow-hidden aspect-square bg-sand-100 group relative">
+          <img src="https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+          <div class="absolute inset-0 bg-ocean-dark/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white">
+            <i data-lucide="instagram" class="w-6 h-6"></i>
+          </div>
+        </div>
+        <div class="rounded-xl overflow-hidden aspect-square bg-sand-100 group relative">
+          <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+          <div class="absolute inset-0 bg-ocean-dark/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white">
+            <i data-lucide="instagram" class="w-6 h-6"></i>
+          </div>
+        </div>
+        <div class="rounded-xl overflow-hidden aspect-square bg-sand-100 group relative">
+          <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+          <div class="absolute inset-0 bg-ocean-dark/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white">
+            <i data-lucide="instagram" class="w-6 h-6"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ SECTION -->
+  <section class="py-20 bg-sand-50">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <span class="text-xs uppercase tracking-widest text-terracotta font-semibold block mb-2">Concierge Assistance</span>
+        <h3 class="font-serif text-3xl text-ocean-dark font-medium">Frequently Asked Questions</h3>
+      </div>
+
+      <div class="bg-white p-6 sm:p-8 rounded-3xl border border-sand-200" id="faqContainer">
+        <!-- Rendered dynamically via js/app.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-ocean-dark text-sand-100 pt-16 pb-12 border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-white/10">
+        
+        <!-- Brand & Mission -->
+        <div class="lg:col-span-2 space-y-4">
+          <span class="font-serif text-2xl tracking-[0.2em] font-medium text-white block">NUSARA</span>
+          <span class="text-[9px] tracking-[0.35em] text-gold uppercase block -mt-2">COLLECTION · JAKARTA · MALÉ</span>
+          <p class="text-xs text-sand-300 leading-relaxed max-w-sm">
+            Curator of fine Indonesian modest wear for the Maldives market. Empowering modest women with breathable natural fabrics, artisan craftsmanship, and discreet island concierge delivery.
+          </p>
+          <div class="flex items-center gap-3 pt-2">
+            <a href="https://instagram.com" target="_blank" class="w-8 h-8 rounded-full bg-white/10 hover:bg-terracotta text-white flex items-center justify-center transition-colors">
+              <i data-lucide="instagram" class="w-4 h-4"></i>
+            </a>
+            <a href="https://wa.me/6281234567890" target="_blank" class="w-8 h-8 rounded-full bg-white/10 hover:bg-emerald-600 text-white flex items-center justify-center transition-colors">
+              <i data-lucide="message-circle" class="w-4 h-4"></i>
+            </a>
+            <a href="mailto:concierge@nusaracollection.com" class="w-8 h-8 rounded-full bg-white/10 hover:bg-terracotta text-white flex items-center justify-center transition-colors">
+              <i data-lucide="mail" class="w-4 h-4"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Links 1: Curations -->
+        <div class="space-y-3">
+          <h5 class="text-xs font-semibold uppercase tracking-widest text-gold">Curations</h5>
+          <ul class="text-xs text-sand-300 space-y-2">
+            <li><a href="#curations" class="hover:text-white transition-colors">Baa Atoll Linen Abayas</a></li>
+            <li><a href="#curations" class="hover:text-white transition-colors">Mulberry Silk Kaftans</a></li>
+            <li><a href="#curations" class="hover:text-white transition-colors">Resort Tunic & Palazzo Sets</a></li>
+            <li><a href="#curations" class="hover:text-white transition-colors">Organza Dusters</a></li>
+            <li><a href="#curations" class="hover:text-white transition-colors">Botanical Eco-Print Silk</a></li>
+          </ul>
+        </div>
+
+        <!-- Links 2: Services & Delivery -->
+        <div class="space-y-3">
+          <h5 class="text-xs font-semibold uppercase tracking-widest text-gold">Services</h5>
+          <ul class="text-xs text-sand-300 space-y-2">
+            <li><a href="#concierge" class="hover:text-white transition-colors">Resort Styling Concierge</a></li>
+            <li><a href="#maldives-logistics" class="hover:text-white transition-colors">Malé Hand Delivery</a></li>
+            <li><a href="#maldives-logistics" class="hover:text-white transition-colors">Speedboat Villa Transfer</a></li>
+            <li><a href="#concierge" class="hover:text-white transition-colors">Custom Sizing Consultation</a></li>
+            <li><a href="#concierge" class="hover:text-white transition-colors">Destination Wedding Outfitting</a></li>
+          </ul>
+        </div>
+
+        <!-- Atelier Locations -->
+        <div class="space-y-3">
+          <h5 class="text-xs font-semibold uppercase tracking-widest text-gold">Ateliers</h5>
+          <div class="text-xs text-sand-300 space-y-2">
+            <div>
+              <strong class="text-white block font-medium">Jakarta Curation Studio</strong>
+              <span>Senopati, South Jakarta, Indonesia</span>
+            </div>
+            <div>
+              <strong class="text-white block font-medium">Maldives Concierge Partner</strong>
+              <span>Majeedhee Magu, Malé & Hulhumalé</span>
+            </div>
+            <div>
+              <strong class="text-white block font-medium">VIP Hotline (WhatsApp)</strong>
+              <span id="footerHotline">+62 812-3456-7890</span>
+            </div>
+            <div class="pt-2 border-t border-white/10">
+              <a href="admin.html" class="inline-flex items-center gap-1.5 text-xs text-gold hover:text-white transition-colors">
+                <i data-lucide="settings" class="w-3.5 h-3.5"></i>
+                <span>Admin Studio Nusara</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Copyright & Disclaimer -->
+      <div class="pt-8 flex flex-col md:flex-row items-center justify-between text-[11px] text-sand-300/60 gap-4">
+        <p>© 2026 NUSARA COLLECTION. All rights reserved. Curated Indonesian Modest Fashion.</p>
+        <div class="flex items-center gap-6">
+          <span class="text-gold font-medium">Curated with Natural Fibers for Maldives</span>
+          <span>Made for Tropical Atolls</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- FLOATING WHATSAPP BUTTON (FAB) -->
+  <a href="https://wa.me/6281234567890?text=Hello%20Nusara%20Concierge!%20I%20would%20like%20to%20inquire%20about%20your%20curated%20Indonesian%20modest%20fashion%20collection." 
+     target="_blank" 
+     class="fab-whatsapp w-14 h-14 rounded-full bg-[#25d366] text-white flex items-center justify-center shadow-2xl hover:scale-110 transition-transform"
+     title="Chat with Maldives Concierge">
+    <i data-lucide="message-circle" class="w-7 h-7"></i>
+  </a>
+
+  <!-- QUICK VIEW MODAL -->
+  <div id="quickViewModal" class="hidden fixed inset-0 z-50 overflow-y-auto">
+    <div class="min-h-screen px-4 text-center flex items-center justify-center py-8">
+      <!-- Backdrop -->
+      <div id="quickModalBackdrop" class="fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity"></div>
+
+      <!-- Modal Card -->
+      <div class="relative bg-white text-left rounded-3xl max-w-3xl w-full p-6 sm:p-8 shadow-2xl z-10 border border-sand-200 overflow-hidden">
+        <button id="closeQuickModal" class="absolute top-5 right-5 text-charcoal/50 hover:text-charcoal p-2 rounded-full hover:bg-sand-100 transition-colors">
+          <i data-lucide="x" class="w-6 h-6"></i>
+        </button>
+
+        <div id="quickViewModalContent">
+          <!-- Injected via js/app.js -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LOOKBOOK INQUIRY BAG DRAWER -->
+  <div id="bagBackdrop" class="hidden fixed inset-0 bg-black/50 backdrop-blur-xs z-50 transition-opacity"></div>
+  <aside id="lookbookDrawer" class="fixed top-0 right-0 h-full w-full max-w-md bg-white shadow-2xl z-50 transform translate-x-full transition-transform duration-400 ease-in-out flex flex-col justify-between">
+    
+    <!-- Drawer Header -->
+    <div class="p-6 border-b border-sand-200 flex items-center justify-between bg-sand-50">
+      <div>
+        <h3 class="font-serif text-xl font-medium text-ocean-dark">Lookbook Inquiry Bag</h3>
+        <span class="text-[11px] text-charcoal/60 uppercase tracking-wider">Curate your Maldives wardrobe</span>
+      </div>
+      <button id="closeBagDrawer" class="p-2 text-charcoal/50 hover:text-charcoal rounded-full hover:bg-sand-200 transition-colors">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+    </div>
+
+    <!-- Drawer Items List -->
+    <div class="p-6 flex-1 overflow-y-auto" id="lookbookBagItems">
+      <!-- Items dynamically populated via js/app.js -->
+    </div>
+
+    <!-- Empty Bag Notice -->
+    <div id="emptyBagNotice" class="hidden flex-1 flex flex-col items-center justify-center p-8 text-center text-charcoal/60">
+      <i data-lucide="shopping-bag" class="w-12 h-12 text-sand-300 mb-3"></i>
+      <p class="font-serif text-lg text-ocean-dark">Your Lookbook Bag is empty</p>
+      <p class="text-xs text-charcoal/60 mt-1">Browse our current lookbook and add pieces you love.</p>
+    </div>
+
+    <!-- Drawer Footer & WhatsApp Action -->
+    <div class="p-6 border-t border-sand-200 bg-sand-50 space-y-4">
+      
+      <!-- Currency & Destination Options -->
+      <div class="space-y-2">
+        <div class="flex items-center justify-between text-xs">
+          <span class="text-charcoal/70">Subtotal</span>
+          <span id="lookbookBagSubtotal" class="font-semibold text-ocean-dark">$0</span>
+        </div>
+        <div class="flex items-center justify-between text-xs">
+          <span class="text-charcoal/70">Delivery to Maldives</span>
+          <span class="text-emerald-700 font-medium">Included in Concierge</span>
+        </div>
+        <div class="pt-2 border-t border-sand-200 flex items-baseline justify-between">
+          <span class="font-serif text-base font-semibold text-ocean-dark">Estimated Total</span>
+          <span id="lookbookBagTotal" class="font-serif text-xl font-bold text-ocean-dark">$0</span>
+        </div>
+      </div>
+
+      <!-- Destination Selector -->
+      <div>
+        <label for="deliveryDestination" class="block text-[11px] font-semibold uppercase tracking-wider text-charcoal/70 mb-1">
+          Delivery Destination in Maldives
+        </label>
+        <select id="deliveryDestination" class="w-full bg-white border border-sand-300 rounded-lg px-3 py-2 text-xs text-charcoal focus:outline-none focus:border-ocean-dark">
+          <option value="Malé City (Local Address / Hotel)">Malé City (Local Address / Hotel)</option>
+          <option value="Hulhumalé (Local Address / Guesthouse)">Hulhumalé (Local Address / Guesthouse)</option>
+          <option value="Resort Island via Speedboat Transfer">Resort Island via Speedboat Transfer</option>
+          <option value="Resort Island via Seaplane Transfer">Resort Island via Seaplane Transfer</option>
+          <option value="Velana International Airport Pickup">Velana International Airport Pickup</option>
+        </select>
+      </div>
+
+      <!-- Send Lookbook to WhatsApp Button -->
+      <button id="sendBagWhatsApp" class="w-full btn-wa-gold py-3.5 text-xs flex items-center justify-center gap-2">
+        <i data-lucide="message-circle" class="w-4 h-4"></i>
+        <span>Send Lookbook to WhatsApp Concierge</span>
+      </button>
+
+      <p class="text-[10px] text-center text-charcoal/50">
+        Our concierge will review piece availability, verify sizing, and provide secure payment & delivery details.
+      </p>
+    </div>
+
+  </aside>
+
+  <!-- MOBILE NAVIGATION DRAWER -->
+  <aside id="mobileDrawer" class="fixed inset-y-0 left-0 w-80 max-w-[85vw] bg-white shadow-2xl z-50 transform -translate-x-full transition-transform duration-300 ease-in-out flex flex-col justify-between p-6">
+    <div>
+      <div class="flex items-center justify-between pb-6 border-b border-sand-200">
+        <div>
+          <span class="font-serif text-xl font-medium tracking-[0.2em] text-ocean-dark">NUSARA</span>
+          <span class="text-[9px] tracking-widest text-charcoal/60 uppercase block">JAKARTA · MALÉ</span>
+        </div>
+        <button id="closeMobileMenu" class="p-2 text-charcoal/50 hover:text-charcoal">
+          <i data-lucide="x" class="w-6 h-6"></i>
+        </button>
+      </div>
+
+      <nav class="py-6 space-y-4 text-sm font-semibold uppercase tracking-wider text-charcoal">
+        <a href="#curations" onclick="document.getElementById('mobileDrawer').classList.add('-translate-x-full')" class="block py-2 hover:text-terracotta">Lookbook</a>
+        <a href="#philosophy" onclick="document.getElementById('mobileDrawer').classList.add('-translate-x-full')" class="block py-2 hover:text-terracotta">The Curation</a>
+        <a href="#fabrics" onclick="document.getElementById('mobileDrawer').classList.add('-translate-x-full')" class="block py-2 hover:text-terracotta">Island Fabrics</a>
+        <a href="#concierge" onclick="document.getElementById('mobileDrawer').classList.add('-translate-x-full')" class="block py-2 hover:text-terracotta">Resort Concierge</a>
+        <a href="#maldives-logistics" onclick="document.getElementById('mobileDrawer').classList.add('-translate-x-full')" class="block py-2 hover:text-terracotta">Maldives Delivery</a>
+      </nav>
+    </div>
+
+    <div class="pt-6 border-t border-sand-200 space-y-4">
+      <div>
+        <label class="block text-[10px] font-semibold uppercase tracking-widest text-charcoal/60 mb-1">Currency Preference</label>
+        <select class="currency-select w-full bg-sand-50 border border-sand-300 rounded-lg px-3 py-2 text-xs font-semibold">
+          <option value="USD">USD ($)</option>
+          <option value="MVR">MVR (Rf)</option>
+          <option value="IDR">IDR (Rp)</option>
+        </select>
+      </div>
+
+      <a href="https://wa.me/6281234567890" target="_blank" class="w-full btn-wa-gold text-xs py-3 flex items-center justify-center gap-2">
+        <i data-lucide="message-circle" class="w-4 h-4"></i>
+        <span>Chat with Maldives Concierge</span>
+      </a>
+    </div>
+  </aside>
+
+  <!-- DATA & SCRIPTS -->
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
